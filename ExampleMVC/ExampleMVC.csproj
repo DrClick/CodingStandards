@@ -201,7 +201,7 @@
     <Content Include="Scripts\amplify.js" />
     <Content Include="Scripts\amplify.min.js" />
     <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\app\home\UsingRequire.js" />
+    <Content Include="Scripts\app\home\UsingJavascript.js" />
     <Content Include="Scripts\app\labelmaster.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -286,7 +286,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\UsingRequire.cshtml" />
+    <Content Include="Views\Home\UsingJavascript.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
   </ItemGroup>
   <ItemGroup>

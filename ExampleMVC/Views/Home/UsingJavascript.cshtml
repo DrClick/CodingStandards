@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Using Require.js";
 }
-<div class="UsingRequire">
+<div class="UsingJavascript">
     <h2>Javascript Standards</h2>
 
     <p>To get started, we will show you how to do to some common stuff</p>
@@ -26,17 +26,17 @@
             var View = null;
             
             //Take notice of this sytax
-            require(['app/home/UsingRequire'], function (view) {
+            require(['app/home/UsingJavascript'], function (view) {
                 View = view;
                 _init.call(this);
             });
 
             function _init() {
                 var view = new View({
-                        clickable       : ".UsingRequire .clickable",
-                        templateDisplay : ".UsingRequire .templateDisplay",
-                        forwardButton   : "UsingRequire button.forward",
-                        backButton      : "UsingRequire button.back"
+                        startButton: ".UsingJavascript .clickable",
+                        templateDisplay: ".UsingJavascript .templateDisplay",
+                        forwardButton: ".UsingJavascript button.forward",
+                        backButton: ".UsingJavascript button.back"
                     },
                     {
                         clickColor: ["#002244", "#69BE28", "#A5ACAF"]

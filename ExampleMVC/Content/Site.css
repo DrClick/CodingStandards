@@ -42,15 +42,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 
-.UsingRequire .jumbotron{
+.UsingJavascript .jumbotron{
     overflow: hidden;
     position: relative;
 }
-.UsingRequire .jumbotron *{
+.UsingJavascript .jumbotron *{
     z-index: 1;
     position: relative;
 }
-.UsingRequire .jumbotron .step{
+.UsingJavascript .jumbotron .step{
     font-size:300px;
     position: absolute;
     left:-20px;
@@ -59,6 +59,6 @@ input[type="checkbox"].input-validation-error {
     opacity:.5;
     z-index: 0
 }
-.UsingRequire pre{
+.UsingJavascript pre{
     font-size:16px !important;
 }

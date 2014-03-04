@@ -27,7 +27,7 @@ namespace ExampleMVC.Controllers
             return View();
         }
 
-        public ActionResult UsingRequire()
+        public ActionResult UsingJavascript()
         {
             return View();
         }

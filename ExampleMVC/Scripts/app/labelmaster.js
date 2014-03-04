@@ -1,5 +1,5 @@
 define(function(require, exports, module){
-	
+	"use strict";
 	//Note we are implamenting Labelmaster as a singleton
 	var Labelmaster = function() {
 		this.callCounter = 0;
