@@ -1,0 +1,26 @@
+<span class="step">{{currentSlide}}</span><h1>Loading Javascript for a view</h1>
+<p>From a Razor view, add the following to the @scripts section</p>
+<pre class="prettyprint lang-js">
+	&lt;script type="text/javascript"&gt;
+        (function () {
+            var View = null;
+            
+            //Take notice of this sytax
+            require(['app/home/UsingRequire'], function (view) {
+                View = view;
+                _init.call(this);
+            });
+
+            function _init() {
+                var view = new View({
+                        clickable       : ".UsingRequire .clickable",
+                        templateDisplay : ".UsingRequire .templateDisplay"
+                    },
+                    {
+                        clickColor: ["#002244", "#69BE28", "#A5ACAF"]
+                    }
+                );
+            }//end init
+        })();
+    </script>
+</pre>

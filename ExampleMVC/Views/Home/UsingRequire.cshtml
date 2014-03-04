@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Using Require.js";
+}
+<div class="UsingRequire">
+    <h2>Javascript Standards</h2>
+
+    <p>To get started, we will show you how to do to some common stuff</p>
+
+    <ul class="list-unstyled"><li class="clickable btn btn-default">Click Me To Start Tutorial</li></ul>
+
+    <div class="jumbotron templateDisplay"></div>
+</div>
+@section scripts
+{
+    <script type="text/javascript" src="/scripts/prettify/prettify.js"></script>
+    <script type="text/javascript" src="/scripts/prettify/run_prettify.js"></script>
+    
+    <script type="text/javascript">
+        (function () {
+            var View = null;
+            
+            //Take notice of this sytax
+            require(['app/home/UsingRequire'], function (view) {
+                View = view;
+                _init.call(this);
+            });
+
+            function _init() {
+                var view = new View({
+                        clickable       : ".UsingRequire .clickable",
+                        templateDisplay : ".UsingRequire .templateDisplay"
+                    },
+                    {
+                        clickColor: ["#002244", "#69BE28", "#A5ACAF"]
+                    }
+                );
+            }//end init
+        })();
+    </script>
+}
+

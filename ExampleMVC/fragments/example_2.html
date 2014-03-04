@@ -1,0 +1,100 @@
+<span class="step">{{currentSlide}}</span><h1>Javascript Basics</h1>
+<p>I want to talk about self executing functions, bind, call and apply.</p>
+<h3>Self executing functions</h3>
+<hr/>
+<p>You most likely have seen some code that starts off looking like this:</p>
+<pre class="prettyprint lang-js">
+    (function () {
+            "use strict";
+            var labelmaster = {
+                toString: function(){return "The Most Awesome Place To Work";},
+                valueOf: 1
+            };
+
+            console.log(labelmaster); //The Most Awesome Place To Work
+            console.log(labelmaster == 1); //true
+    })();
+</pre>
+<p> What to notice here is that it starts with the rather cryptic <code>(function(){...})()</code>. This simply tells the javascript interpretor that this is a function that should be executed immediately and it scopes any variables created inside it to the function.<p>
+<p>If your code is not inside of one of these bad boys, you should be asking yourself why you are screwing up (or you are creating a module but more about that later.)</p>
+<h3>The <code>this</code> keyword and how to use it correctly.</h3>
+<hr/>
+<p>Chances are, you have gotten really pissed off when using <code>this</code> in javascript. It is probably one of the biggest pains in the ass I can imagine when starting to learn. Here is an example of fail town:</p>
+<pre class="prettyprint lang-js">
+    var foo = function(){
+        this.bar = "well meaning";
+        
+        //fails here... when click is fired, it thinks this is the window object...
+        $("button").click(this.clickHandler); 
+
+        this.clickHandler = function(evt){
+            console.log(this.bar);
+        };
+    };
+</pre>
+<p>What gives right? Well, this is complicated. I recommend reading <a href="http://www.amazon.com/Effective-JavaScript-Specific-Software-Development/dp/0321812182" target="_blank">this book</a> if you want to really understand it. Heck I recommend it in general.</p>
+<p>What you need to know is that when you have a callback function, this reverts to the scope of the calling object which is 99% of the time not what you wanted.</p>
+<p>There are a lot of ways around this, but a common technique was to create a closure (a function with references to variables outside the body of the function) with a piece of code like this:</p>
+<pre class="prettyprint lang-js">
+    var foo = function(){
+
+        var me = this; //creates a reference to [this]
+        
+        me.bar = "this works as expected";
+        
+        //now it works!
+        $("button").click(me.clickHandler); 
+
+        this.clickHandler = function(evt){
+            console.log(this.bar);
+        };
+    };
+</pre>
+<p>This works great but.... it's kinda ugly! Different devs could name me something else, like for instance <code>that, _this</code> and generally leads to ugliness so they fixed it. Now you can call functions and specify the context or bind a function to a context. Examples will help here:</p>
+<pre class="prettyprint lang-js">
+    var foo = function(){
+
+        this.bar = "this works and is why more clear";
+
+        $("button").click(this.clickHandler.bind(this));//explicitly binding the context 
+
+        this.clickHandler = function(evt){
+            console.log(this.bar);
+        };
+    };
+</pre>
+<p>So what about call and apply? Call and apply are very similar, but they differ a little bit. Call works like this: <code>func.call(context, var1, var2, ..., varn)</code> where as apply is <code>func.apply(context, args)</code> where <code>args</code> is an array of variables.</p>
+<p>Here is an example of using them</p>
+<pre class="prettyprint lang-js">
+    var foo = function(){
+
+        this.bar = "Nefty and clear. Notice _doSomethingCool would not know what bar is unless you give it context.";
+
+        _doSomethingCool.call(this, {cool:true});
+        _doSomethingCool.apply(this, ["Foo", "Bar"]);
+    };
+
+    function _doSomethingCool(data){
+        console.log(this.bar);
+        console.log(data);
+    }
+</pre>
+<p>Finally, you will end up with the following syntax when you are passing in a callback where the function returns parameters</p>
+<pre class="prettyprint lang-js">
+    var foo = function(){
+
+        this.bar = "Now we are cooking with Gas!";
+
+        $("button").click(function(data){
+            this.clickHandler.call(this, data); //calls function with context and data
+        }.bind(this)); //binds the closure 
+    };
+
+    function _doSomethingCool(data){
+        console.log(this.bar);
+        console.log(data);
+    }
+</pre>
+<p>At first glance, all of this bind, call, and apply stuff might seem verbose, but, it is concise and makes clear the ever murky <code>this</code> in your functions.</p>
+
+
