@@ -1,0 +1,30 @@
+<span class="step">{{currentSlide}}</span><h1>MVC Bundles</h1>
+<p>MVC 4 introduced the use of bundles. Basically they are a great way to build your JS and CSS into a single minified and obfuscated code on release and keep the original source in development. It is a great tool! It even auto increments your src tag when a change happens that requires you to rebuild the bundle!</p>
+<p> We are going to use it for our core libraries and dependencies. The following is from the App_start class that combines all of of our libraries into 1 JS file while in release mode.</p>
+<pre class="prettyprint lang-cs">
+    public class BundleConfig
+    {
+        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/modernizr-*",
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/respond.js",
+                        "~/Scripts/underscore.js",
+                        "~/Scripts/amplify.js",
+                        "~/Scripts/hogan.js",
+                        "~/Scripts/lib/functionPrototypeBind.js",
+                        "~/Scripts/require.js",
+                        "~/Scripts/app/app.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/prettify.sunburst.css"));
+        }
+    }
+</pre>
+<p>To consume a bundle, you simply include the following on your MVC Razor view <code>@Scripts.Render("~/bundles/js")</code></p>

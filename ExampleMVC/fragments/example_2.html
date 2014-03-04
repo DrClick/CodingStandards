@@ -12,7 +12,7 @@
             };
 
             console.log(labelmaster); //The Most Awesome Place To Work
-            console.log(labelmaster == 1); //true
+            console.log(labelmaster == 1);   //true
     })();
 </pre>
 <p> What to notice here is that it starts with the rather cryptic <code>(function(){...})()</code>. This simply tells the javascript interpretor that this is a function that should be executed immediately and it scopes any variables created inside it to the function.<p>
@@ -33,7 +33,7 @@
     };
 </pre>
 <p>What gives right? Well, this is complicated. I recommend reading <a href="http://www.amazon.com/Effective-JavaScript-Specific-Software-Development/dp/0321812182" target="_blank">this book</a> if you want to really understand it. Heck I recommend it in general.</p>
-<p>What you need to know is that when you have a callback function, this reverts to the scope of the calling object which is 99% of the time not what you wanted.</p>
+<p>What you need to know is that when you have a callback function, <code>this</code> reverts to the scope of the calling object which is 99% of the time not what you wanted.</p>
 <p>There are a lot of ways around this, but a common technique was to create a closure (a function with references to variables outside the body of the function) with a piece of code like this:</p>
 <pre class="prettyprint lang-js">
     var foo = function(){
@@ -50,13 +50,14 @@
         };
     };
 </pre>
-<p>This works great but.... it's kinda ugly! Different devs could name me something else, like for instance <code>that, _this</code> and generally leads to ugliness so they fixed it. Now you can call functions and specify the context or bind a function to a context. Examples will help here:</p>
+<p>This works great but.... it's kinda ugly! Different devs could name <code>me</code> something else, like for instance <code>that, _this</code> and generally leads to ugliness so they fixed it. Now you can call functions and specify the context or bind a function to a context. Examples will help here:</p>
 <pre class="prettyprint lang-js">
     var foo = function(){
 
         this.bar = "this works and is why more clear";
 
-        $("button").click(this.clickHandler.bind(this));//explicitly binding the context 
+        //explicitly binding the context 
+        $("button").click(this.clickHandler.bind(this));
 
         this.clickHandler = function(evt){
             console.log(this.bar);
@@ -86,7 +87,8 @@
         this.bar = "Now we are cooking with Gas!";
 
         $("button").click(function(data){
-            this.clickHandler.call(this, data); //calls function with context and data
+            //calls function with context and data
+            this.clickHandler.call(this, data); 
         }.bind(this)); //binds the closure 
     };
 
@@ -95,6 +97,6 @@
         console.log(data);
     }
 </pre>
-<p>At first glance, all of this bind, call, and apply stuff might seem verbose, but, it is concise and makes clear the ever murky <code>this</code> in your functions.</p>
+<p>At first glance, all of this bind, call, and apply stuff might seem verbose, but, it is concise and makes clear the ever murky waters that is <code>this</code> in your functions.</p>
 
 

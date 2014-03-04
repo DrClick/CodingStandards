@@ -9,7 +9,7 @@
     	
     	//set properties
     	this.domRef = domRef;
-    	this.clickCounter = 0;
+    	this.slideIndex = 0;
 
         //call a private method
     	_create.call(this);
@@ -33,25 +33,42 @@
     		_clickHandler.call(this, evt);
     	}.bind(this));
 
+        $(this.domRef.forward).click(_forward.bind(this));
+        $(this.domRef.back).click(_back.bind(this));
+
         amplify.subscribe("Fragment.Loaded.UsingRequire", _dataLoaded.bind(this));
 
 
     }//end create
 
     function _clickHandler(evt){
-    	$(evt.target).css({
-    	    "background-color": this.options.clickColor[this.clickCounter % 3],
+    	$(evt.target, this.domRef.forward, this.domRef.back).css({
+    	    "background-color": this.options.clickColor[this.slideIndex % 3],
             "color": "white"
         	});
 
-        var data = {currentSlide: this.clickCounter};
+        _loadSlide.call(this,this.slideIndex);
 
-        //load a fragment
-        Labelmaster.loadFragment(this.fragments[this.clickCounter], data, "UsingRequire");
-
-        this.clickCounter++;
+        this.slideIndex++;
     }//end clickHandler
 
+    function _forward(){
+        this.slideNumber = (this.slideNumber + 1) % this.fragments.length;
+        this.loadSlide.call(this, this.slideNumber);
+    }
+
+    function _back(){
+        this.slideNumber = this.slideNumber - 1 >= 0 ? this.slideNumber -1 : this.fragments.length -1;
+        this.loadSlide.call(this, this.slideNumber);
+    }
+
+    function _loadSlide(slideNumber){
+
+        var data = {currentSlide: this.slideIndex + 1};
+        
+        //load a fragment
+        Labelmaster.loadFragment(this.fragments[slideNumber], data, "UsingRequire");
+    }
 
     function _dataLoaded(data){
         $(this.domRef.templateDisplay).html(data);

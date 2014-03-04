@@ -8,7 +8,13 @@
 
     <ul class="list-unstyled"><li class="clickable btn btn-default">Click Me To Start Tutorial</li></ul>
 
-    <div class="jumbotron templateDisplay"></div>
+    <div class="jumbotron templateDisplay">
+        
+    </div>
+    <div class="row controls">
+            <div class="col-sm-4 col-sm-offset-2"><button class="btn btn-default back">back</button></div>
+            <div class="col-sm-4 col-sm-offset-2"><button class="btn btn-default forward">forward</button></div>
+        </div>
 </div>
 @section scripts
 {
@@ -28,7 +34,9 @@
             function _init() {
                 var view = new View({
                         clickable       : ".UsingRequire .clickable",
-                        templateDisplay : ".UsingRequire .templateDisplay"
+                        templateDisplay : ".UsingRequire .templateDisplay",
+                        forwardButton   : "UsingRequire button.forward",
+                        backButton      : "UsingRequire button.back"
                     },
                     {
                         clickColor: ["#002244", "#69BE28", "#A5ACAF"]

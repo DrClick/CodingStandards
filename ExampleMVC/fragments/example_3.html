@@ -12,7 +12,8 @@
             });
 
             function _init() {
-                var view = new View({
+                var view = new View(
+                    {
                         clickable       : ".UsingRequire .clickable",
                         templateDisplay : ".UsingRequire .templateDisplay"
                     },
@@ -24,3 +25,10 @@
         })();
     </script>
 </pre>
+<p>Things you should notice:
+<ol>
+    <li>Self closing function. This keeps you from accidentally polluting the global namespace.</li>
+    <li>The use of Require to load your script asynchronously.</li>
+    <li>The first argument of a view will always be the DOM handles. This separates the DOM from the javascript module and address a major source of brittleness </li>
+    <li>The second argument isan options argument. Which can be used to override DEFAULT OPTIONS defined on the class itself.</li>
+</ol></p>
