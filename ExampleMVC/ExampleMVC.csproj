@@ -188,6 +188,7 @@
     <Content Include="Content\prettify.sunburst.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fragments\example_eslint.html" />
     <Content Include="fragments\example_so_say_we_all.html" />
     <Content Include="fragments\example_jasmine.html" />
     <Content Include="fragments\example_hogan.html" />
