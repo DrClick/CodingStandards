@@ -189,6 +189,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fragments\example_1.html" />
+    <Content Include="fragments\example_2.html" />
+    <Content Include="fragments\example_3.html" />
+    <Content Include="fragments\example_4.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
