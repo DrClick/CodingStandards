@@ -41,6 +41,13 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.navbar{
+    background-color:rgba(0,0,0,.6);
+}
+.navbar:hover{
+    background-color:rgba(0,0,0,1);
+}
+
 
 .UsingJavascript .jumbotron{
     overflow: hidden;

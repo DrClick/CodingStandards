@@ -1,0 +1,15 @@
+<span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
+<p>Requier expects your code to return a module. The following in the minimum scaffolding required to use it.</p>
+<pre class="prettyprint lang-cs">
+define(function(require, exports, module) {
+    "use strict"; //always do this, always
+   
+    //a simple object with a method foo
+    var myView = function(){
+        foo: function(){return "bar";}    
+    }
+    
+    //this is how you return your object
+    module.exports = MyView;
+</pre>
+

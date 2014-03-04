@@ -1,7 +1,7 @@
 ﻿define(function (require, exports, module) {
     function View(options) {
         this.options = Object.create(this.constructor.DEFAULT_OPTIONS || View.DEFAULT_OPTIONS);
-        if(options) this.setOptions(options);
+        if(options) {this.setOptions(options);}
     }
     View.DEFAULT_OPTIONS = {}; // no defaults
 
