@@ -1,6 +1,6 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>Requier expects your code to return a module. The following in the minimum scaffolding required to use it.</p>
-<pre class="prettyprint lang-cs">
+<p>Require expects your code to return a module. The following in the minimum scaffolding required to use it.</p>
+<pre class="prettyprint lang-js">
 define(function(require, exports, module) {
     "use strict"; //always do this, always
    
@@ -11,5 +11,60 @@ define(function(require, exports, module) {
     
     //this is how you return your object
     module.exports = MyView;
+}
 </pre>
+<p>That was easy! Using this syntax, you list all of your dependencies at the beginning of your module and Require makes sure they are there before you use them. The above example returns a singleton, but here is a more typical example of returning a class.<p>
+<pre class="prettyprint lang-js">
+define(function(require, exports, module) {
+    "use strict"; //always do this, always
+   
+    function Animal(numLegs){
+        this.legs = numLegs;
+        this.voice = "---"
+    }
+    Animal.prototype.speak = function(){
+        alert(this.voice);
+    };
+    
+    //this is how you return your object
+    module.exports = Animal;
+}
+</pre>
+<p>Now that we have an animal, lets show how to inherit from animal and create a dog using require.</p>
+<pre class="prettyprint lang-js">
+
+define(function(require, exports, module) {
+    "use strict"; //always do this, always
+
+    var Animal = require("Animal");//the base class is required
+   
+    function Dog(color){
+        Animal.apply(this, [4]);//call the base constructor
+        _create.call(this, color);//calls a private method
+    }
+    Dog.prototype = Object.create(Animal.prototype);
+    Dog.prototype.constructor = Dog;
+
+
+    //a private method!
+    function _create(color){
+        this.color = color;
+        this.voice = "Bark"
+    }
+    
+    //this is how you return your object
+    module.exports = Dog;
+}
+</pre>
+<p>Finally we can use our dog inside one of our modules by doing the following</p>
+<pre class="prettyprint lang-js">
+	var Dog = require("Dog");
+	var myDog = new Dog("black");
+
+	myDog.speak(); //shows alert screen saying "Bark"
+
+	myDog._create: //undefined cause its private!!!
+</pre>
+
+<p>Neat huh? Require is awesome and this method of constructing your classes keeps things very clear and concise</p>
 

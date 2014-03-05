@@ -110,7 +110,7 @@
         Labelmaster.loadFragment(this.slides[slideNumber].url, data, "TutorialLoaded");
         
         //scroll to the top of the tutorial
-        $("body").animate({ scrollTop: 80 }, 1000);
+        $("body").animate({ scrollTop: 80 }, 300);
     }
 
     function _slideLoaded(data) {

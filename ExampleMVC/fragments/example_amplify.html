@@ -1,6 +1,72 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>Amplify</p>
-<pre class="prettyprint lang-cs">
-foo
+<p>Amplify is a amoung other things a pub/sub library for javascript. Check out the documentation <a href="http://amplifyjs.com/api/pubsub/" target="_blank">here</a></p>
+<p>We are going to use it as our eventing engine. When should you use it? When ever you make a call to the server. When else? Often!</p>
+<p>Here is a demo</p>
+<blockquote>
+	<div class="demo">
+		<div class="person leader">I publish an event. Click me</div>
+		<div class="person minion">I listen to events</div>
+		<div class="person minion">I listen to events</div>
+		<div class="person minion">I listen to events</div>
+		<div class="person minion">I listen to events</div>
+	</div>
+</blockquote>
+<pre class="prettyprint lang-js">
+	(function(){
+		$(".person.leader").click(function(){
+			alert("I am going to publish an event named leader.clicked");
+			amplify.publish("leader.clicked", {creedo:"So Say We All"});
+		});
+
+		//here we are going to listen for the leader.clicked event
+		amplify.subscribe("leader.clicked", function(data){
+			$(".person.minion").html(data.creedo);
+		});
+
+		//the power really comes when you realize you can have multiple listeners
+		//this is important when when you have multiple sections of the screen
+		//that must respond based on event.
+		amplify.subscribe("leader.clicked", function(data){
+			$(".person.minion").css("background-color", "gainsboro");
+		});
+	})();
 </pre>
+<p>As you can see, it's easy to use and intuitive. The real power of course is async events like a post or get. Break away from inlined continuation and start thinking pub/sub!</p>
+<style type="text/css">
+	.person{
+		height: 100px;
+		width: 100px;
+		border-radius: 10px;
+		padding: 10px;
+		box-shadow: 3px 3px 3px rgba(0,0,0,.5);
+		display:inline-block;
+		margin:10px;
+	}
+	.person.leader{
+		background-color:lightpink;
+	}
+	.person.minion{
+		background-color: lightblue;
+	}	
+</style>
+<script type="text/javascript">
+	(function(){
+		$(".person.leader").click(function(){
+			alert("I am going to publish an event named leader.clicked");
+			amplify.publish("leader.clicked", {creedo:"So Say We All"});
+		});
+
+		//here we are going to listen for the leader.clicked event
+		amplify.subscribe("leader.clicked", function(data){
+			$(".person.minion").html(data.creedo);
+		});
+
+		//the power really comes when you realize you can have multiple listeners
+		//this is important when when you have multiple sections of the screen
+		//that must respond based on event.
+		amplify.subscribe("leader.clicked", function(data){
+			$(".person.minion").css("background-color", "gainsboro");
+		});
+	})();
+</script>
 

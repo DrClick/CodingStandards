@@ -1,5 +1,34 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>app.js</p>
-<pre class="prettyprint lang-cs">
-foo
+<p>The app.js file is the only place global configuration stuff goes. You should probably not be using it for the most part. But you should be aware it is there. Right now, the only thing in there is a configuration for Require. Other uses might be Google analytics and other things that need to run in a global context.</p>
+<pre class="prettyprint lang-js">
+requirejs.config({
+    baseUrl: '/Scripts'
+});
 </pre>
+<p>I can hear the next question, <i>"Where do global function go?"</i> Glad you asked! That is what labelmaster.js is for. Here is what it looks like right now. It is worth highlighting the syntax is equivalent to a static class or singelton. (There are subtle differences here and other typical class modules, note we are declaring a variable and returning that particular variable and not modifying its prototype)</p>
+<pre class="prettyprint lang-js">
+define(function(require, exports, module){
+	"use strict";
+	
+	//Note we are implementing Labelmaster as a singleton
+	var Labelmaster = function() {
+		this.callCounter = 0;
+	};	
+	
+	Labelmaster.loadFragment = function(url, data, key) {
+		
+		this.callCounter++;//showing singelton
+		//logger.log("request to load :" + url);
+	    
+	    require(['text!' + url], function(frag){
+	        var result = Hogan.compile(frag).render(data);
+
+	        //publish event with amplify
+	        amplify.publish("Fragment.Loaded." + key, result);
+	    });
+	};//end function
+
+	module.exports = Labelmaster;
+});
+</pre>
+
