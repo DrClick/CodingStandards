@@ -102,6 +102,7 @@ define(function(require, exports, module){
 
 	Labelmaster.postForm = function(form, url, opts){
 		var data = $(form).serialize();//JQuery Method
+		console.log(data);
 		this.sendRequest(_.extend({url: url, method: "POST", data: data}, opts));
 	};//end postForm
 

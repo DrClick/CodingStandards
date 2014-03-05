@@ -1,6 +1,70 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>So Say We All</p>
-<pre class="prettyprint lang-js">
-foo
-</pre>
+<p>Finally, lets check out the <a href="/home/helloWorld" target="_blank">"Hello World"</a> form submission. First we have a very simple set of controller functions.</p>
+<pre class="prettyprint lang-cs">
+[HttpGet]
+public ActionResult HelloWorld()
+{
+    return View();
+}
 
+[HttpPost]
+public ActionResult HelloWorld(HelloWorldModel model)
+{
+    Thread.Sleep(1500);//simulate a really long request
+    return Json(new JSONResponse()
+	    {
+	        data = String.Format("{0} - Thanks for checking out the standards", 
+	        	model.Name),
+	        eventName = "HelloFromTheServer",
+	        code = 200
+	    });
+}
+</pre>
+<p>Things to take note of are the [HttpGet] and [HttpPost] attributes on the methods and that the post method expects 1 parameter of type <code>HelloWorldModel</code>. That method fakes a long call so we can see the front end work and returns a JSONResponse object. Here are a look at those two POCCO objects,
+<pre class="prettyprint lang-cs">
+    public class HelloWorldModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class JSONResponse
+    {
+        public string data { get; set; }
+        public int code { get; set; }
+        public string[] messages { get; set; }
+        public string undoToken { get; set; }
+        public string eventName { get; set; }
+    }
+</pre>
+<p>The thing to keep in mind is when we call the post method HelloWorld, we are going to send in a JSON object that matches looks like this HelloWorldModel object.
+</p>
+<p>Now we just have to handle the submitting of a basic HTML form. Armed with require, it is very simple. NOTE: We should be creating a view here, but as it is 10 minutes before I am supposed to show this, it is what it is!</p>
+<pre class="prettyprint lang-js">
+(function () {
+    var Labelmaster = null;
+
+    //Take notice of this sytax
+    require(['labelmaster/labelmaster'], function (lm) {
+        Labelmaster = lm;
+        _init.call(this);
+    });
+
+    function _init() {
+        $("#mainForm").on("submit", function (evt) {
+            evt.preventDefault();
+
+            //this is the magic!
+            Labelmaster.postForm(evt.target, "/home/helloWorld");
+        });
+    }//end init
+
+    amplify.subscribe("HelloFromTheServer", _listenForServerResponse);
+    function _listenForServerResponse(data){
+        $("#response").html(data);
+        $("#response").addClass("alert alert-warning");
+    }
+})();
+</pre>
+<p>The key things to note here are we are requiring Labelmaster, capturing the form submit and using the labelmaster method. Finally we are listening for response and taking action when the server comes back. This lets us be very responsive to the user and fail gracefully. More to come!</p>
+<h3>Javascript Rocks! SO SAY WE ALL</h3>
