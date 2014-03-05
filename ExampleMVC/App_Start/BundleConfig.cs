@@ -9,15 +9,15 @@ namespace ExampleMVC
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/modernizr-*",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/respond.js",
-                        "~/Scripts/underscore.js",
-                        "~/Scripts/amplify.js",
-                        "~/Scripts/hogan.js",
+                        "~/Scripts/lib/jquery-{version}.js",
+                        "~/Scripts/lib/modernizr-*",
+                        "~/Scripts/lib/bootstrap.js",
+                        "~/Scripts/lib/respond.js",
+                        "~/Scripts/lib/underscore.js",
+                        "~/Scripts/lib/amplify.js",
+                        "~/Scripts/lib/hogan.js",
                         "~/Scripts/lib/functionPrototypeBind.js",
-                        "~/Scripts/require.js",
+                        "~/Scripts/lib/require.js",
                         "~/Scripts/app/app.js"
             ));
 

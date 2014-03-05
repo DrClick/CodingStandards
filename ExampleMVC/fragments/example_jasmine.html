@@ -1,5 +1,133 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>Jasmine</p>
+<p>Jasmine is a javascript unit testing framework and you can check out the documentation <a href="//jasmine.github.io/2.0/introduction.html" target="_blank">here</a>.</p>
+<p>A lot of our UI code may not make sense to unit test, but even in this simple example, there is code here that could stand to be unit tested. Namely, the code that determines what is the next slide to show.</p>
+<p>The requirements for this code is that if going forward it shows you the next slide. If at the end of the slide deck, it shows you the first slide. If going backwards, it shows you the previous slide and if at the beginning, shows you the last slide. Sounds like we have a perfect chuck of code to unit test! Lets do it with Jasmine.</p>
+<p>Like any programmer would, we are going to use a TDD approach here and write the test first.</p>
 <pre class="prettyprint lang-js">
-foo
+describe("Slide Picker", function() {
+  	describe("Next Slide", function() {
+		it("should return the next slide if not the last slide", function() {
+			//perform test
+								
+			expect(true).toBe(false);
+		});
+		it("should return the first slide if it is the last slide", function() {
+			//perform test
+								
+			expect(true).toBe(false);
+		});
+	});
+
+	describe("Previous Slide", function() {
+		it("should return the previous slide if not the first slide", function() {
+			//perform test
+								
+			expect(true).toBe(false);
+		});
+		it("should return the last slide if it is the first slide", function() {
+			//perform test
+								
+			expect(true).toBe(false);
+		});
+	});
+
+});
 </pre>
+<p>This produces the following result</p>
+<div class="row"><div class="col-sm-8 col-sm-offset-2">
+<img src="/fragments/content/jasmine_fail.png" width="500"/></div></div>
+<p>I want to take a minute to note that our boiler plate differs slightly from the example jasmine documentation because we are using a module pattern (Require.js). The test entry page is at /Scripts/Tests/Index.html and to run your tests, simply navigate to <a href="/Scripts/Tests" target="_blank">/Scripts/Tests</a></p>
+<br/>
+<p>
+	That page will load the testHarness.js file which contains some boilerplate code for jasmine, but it in turn loads SpecRunner.js. That is where we load in our test specs. 
+</p>
+<pre class="prettyprint lang-js">
+define(function(require, exports, module) {
+
+	//add specs here
+	var specs = {};
+
+	//Our first spec!!
+	specs.SlidePicker = require("SlidePicker.spec");
+
+
+
+	function TestRunner(){
+		for(var spec in specs){
+			//run each spec
+			specs[spec]();
+		}
+	}
+
+	module.exports = TestRunner;
+});
+</pre>
+<p>Ok, so it's time to do something useful and get these tests to pass, lets create the NextSlide calculator. The logic is pretty straight forward, but again, we want to make sure it works.</p>
+<pre class="prettyprint lang-js">
+define(function(require, exports, module) {
+	"use strict";
+
+	function NextSlide(slideIndex, length, forward) {
+		var next = slideIndex + (forward ? 1 : -1);
+		if (next < 0) {
+			next = length - 1;
+		}
+
+		return next % length; //loops back to zero if at the end
+	}
+
+
+	module.exports = NextSlide;
+});
+</pre>
+<p>Now we can update our test spec as follows.</p>
+<pre class="prettyprint lang-js">
+define(function(require, exports, module) {
+var NextSlide = require('../../app/utils/NextSlide');
+
+var Spec =  function(){ 
+	describe("Slide Picker", function() {
+	  	describe("Next Slide", function() {
+			it("should return the next slide if not the last slide", function() {
+				//perform test
+				var actual = NextSlide(3,5,true);
+				var expected = 4;
+				
+				expect(actual).toBe(expected);
+			});
+			it("should return the first slide if it is the last slide", function() {
+				//perform test
+				var actual = NextSlide(4,5,true);
+				var expected = 0;
+				
+				expect(actual).toBe(expected);
+			});
+		});
+
+		describe("Previous Slide", function() {
+			it("should return the previous slide if not the first slide", function() {
+				//perform test
+				var actual = NextSlide(4,5,false);
+				var expected = 3;
+				
+				expect(actual).toBe(expected);
+			});
+			it("should return the last slide if it is the first slide", function() {
+				//perform test
+				var actual = NextSlide(0,5,false);
+				var expected = 4;
+				
+				expect(actual).toBe(expected);
+			});
+		});
+
+	});//
+};//end spec
+
+module.exports = Spec; 
+});
+</pre>
+<p>Re-running our tests again shows us that we indeed did pass our tests!</p>
+<div class="row"><div class="col-sm-8 col-sm-offset-2">
+<img src="/fragments/content/jasmine_pass.png" width="500"/></div></div>
+

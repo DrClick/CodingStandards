@@ -1,7 +1,7 @@
 ﻿define(function(require, exports, module) {
     "use strict";
-    var View = require("lib/View");
-    var Labelmaster = require("app/labelmaster");
+    var View = require("labelmaster/View");
+    var Labelmaster = require("labelmaster/labelmaster");
 
     function UsingRequireView(domRef, options) {
     	//Note the use apply. A common pitful is that arguments must be an array.
