@@ -2,6 +2,7 @@
     "use strict";
     var View = require("labelmaster/View");
     var Labelmaster = require("labelmaster/labelmaster");
+    var NextSlide = require("app/utils/NextSlide");
 
     function UsingRequireView(domRef, options) {
     	//Note the use apply. A common pitful is that arguments must be an array.
@@ -87,13 +88,13 @@
 
     function _forward(){
         _setButtonColor.call(this);
-        var slideToShow = _nextSlide.call(this, this.slideIndex, this.slides.length, true);
+        var slideToShow = NextSlide(this.slideIndex, this.slides.length, true);
         _loadSlide.call(this, slideToShow);
     }
 
     function _back(){
         _setButtonColor.call(this);
-        var slideToShow = _nextSlide.call(this, this.slideIndex, this.slides.length, false);
+        var slideToShow = NextSlide(this.slideIndex, this.slides.length, false);
         _loadSlide.call(this, slideToShow);
     }
 
@@ -115,7 +116,7 @@
 
     function _slideLoaded(data) {
 
-        var nextSlide = _nextSlide.call(this, this.slideIndex, this.slides.length, true);
+        var nextSlide = NextSlide(this.slideIndex, this.slides.length, true);
         
         $(this.domRef.startButton).html("Next Up: " + this.slides[nextSlide].name);
         
@@ -124,16 +125,6 @@
         PR.prettyPrint();//apply pretty print
     }//end function
     
-
-    function _nextSlide(slideIndex, length, forward) {
-        var next = slideIndex + (forward ? 1 : -1);
-        if (next < 0) {
-            next = length - 1;
-        }
-
-        return next % length; //loops back to zero if at the end
-    }
-
 
     module.exports = UsingRequireView;
 });

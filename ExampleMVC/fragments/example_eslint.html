@@ -1,6 +1,126 @@
 <span class="step">{{currentSlide}}</span><h1>{{name}}</h1>
-<p>ESLint</p>
-<pre class="prettyprint lang-js">
-foo
-</pre>
+<p>So when it comes to standards, there are a ton of best practices, but the majority of them can be sorted out with common linting tools. A personally hope we adopt <a href="http://eslint.org/" target="_blank">ESLint</a> as part of our build process.</p>
+<p>If you have joined the dark side, its super fast and easy to run ESLint from node on your mac <code>eslint filname.js</code>. For the rest of us, it will be more challenging and I recommend the online linting tool <a href="http://www.jslint.com/">http://www.jslint.com/</a> until I can work with testing/deployment to get this automated as part of the build process. We are not the only ones doing this <a href="http://blog.movereem.nl/automating-javascript-testing-in-a-microsoft-environment/" target="_blank">http://blog.movereem.nl/automating-javascript-testing-in-a-microsoft-environment/</a></p>
+<p>Here are the basic rules for ESLint I think we should adopt with additions and subtractions </p>
 
+<h3>Possible Errors</h3>
+
+no-cond-assign - disallow assignment in conditional expressions
+<br/>no-console - disallow use of console
+<br/>no-constant-condition - disallow use of constant expressions in conditions
+<br/>no-comma-dangle - disallow trailing commas in object literals
+<br/>no-control-regex - disallow control characters in regular expressions
+<br/>no-debugger - disallow use of debugger
+<br/>no-dupe-keys - disallow duplicate keys when creating object literals
+<br/>no-empty - disallow empty statements
+<br/>no-empty-class - disallow the use of empty character classes in regular expressions
+<br/>no-ex-assign - disallow assigning to the exception in a catch block
+<br/>no-extra-boolean-cast - disallow double-negation boolean casts in a boolean context
+<br/>no-extra-parens - disallow unnecessary parentheses
+<br/>no-extra-semi - disallow unnecessary semicolons
+<br/>no-func-assign - disallow overwriting functions written as function declarations
+<br/>no-invalid-regexp - disallow invalid regular expression strings in the RegExp constructor
+<br/>no-negated-in-lhs - disallow negation of the left operand of an in expression
+<br/>no-obj-calls - disallow the use of object properties of the global object (Math and JSON) as functions
+<br/>no-regex-spaces - disallow multiple spaces in a regular expression literal
+<br/>no-sparse-arrays - disallow sparse arrays
+<br/>no-unreachable - disallow unreachable statements after a return, throw, continue, or break statement
+<br/>use-isnan - disallow comparisons with the value NaN
+<br/>valid-jsdoc - Ensure JSDoc comments are valid (off by default)
+
+<h3>Best Practices</h3>
+
+block-scoped-var - treat var statements as if they were block scoped
+<br/>complexity - specify the maximum cyclomatic complexity allowed in a program
+<br/>consistent-return - require return statements to either always or never specify values
+<br/>curly - specify curly brace conventions for all control statements
+<br/>dot-notation - encourages use of dot notation whenever possible
+<br/><span class="nope">eqeqeq - require the use of === and !==</span>
+<br/>guard-for-in - make sure for-in loops have an if statement (off by default)
+<br/><span class="nope">no-alert - disallow the use of alert, confirm, and prompt</span>
+<br/>no-caller - disallow use of arguments.caller or arguments.callee
+<br/>no-div-regex - disallow division operators explicitly at beginning of regular expression
+<br/>no-else-return - disallow else after a return in an if.
+<br/>no-empty-label - disallow use of labels for anything other then loops and switches
+<br/>no-eq-null - disallow comparisons to null without a type-checking operator
+<br/>no-eval - disallow use of eval()
+<br/>no-extend-native - disallow adding to native types
+<br/>no-fallthrough - disallow fallthrough of case statements
+<br/>no-floating-decimal - disallow the use of leading or trailing decimal points in numeric literals
+<br/>no-implied-eval - disallow use of eval()-like methods
+<br/>no-labels - disallow use of labeled statements
+<br/>no-iterator - disallow usage of __iterator__ property
+<br/>no-lone-blocks - disallow unnecessary nested blocks
+<br/>no-loop-func - disallow creation of functions within loops
+<br/>no-multi-str - disallow use of multiline strings
+<br/>no-native-reassign - disallow reassignments of native objects
+<br/>no-new - disallow use of new operator when not part of the assignment or comparison
+<br/>no-new-func - disallow use of new operator for Function object
+<br/>no-new-wrappers - disallows creating new instances of String,Number, and Boolean
+<br/>no-octal - disallow use of octal literals
+<br/>no-octal-escape - disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
+<br/>no-proto - disallow usage of __proto__ property
+<br/>no-redeclare - disallow declaring the same variable more then once
+<br/>no-return-assign - disallow use of assignment in return statement
+<br/>no-script-url - disallow use of javascript: urls.
+<br/>no-self-compare - disallow comparisons where both sides are exactly the same
+<br/>no-unused-expressions - disallow usage of expressions in statement position
+<br/>no-with - disallow use of the with statement
+<br/>no-yoda - disallow Yoda conditions
+<br/>radix - require use of the second argument for parseInt()
+<br/>wrap-iife - require immediate function invocation to be wrapped in parentheses
+
+<h3>Strict Mode</h3>
+These rules relate to using strict mode.
+
+no-global-strict - disallow the "use strict" pragma in the global scope
+<br/>no-extra-strict - disallow unnecessary use of "use strict"; when already in strict mode
+<br/>strict - require that all functions are run in strict mode
+
+<h3>Variables</h3>
+
+no-catch-shadow - disallow the catch clause parameter name being the same as a variable in the outer scope
+<br/>no-delete-var - disallow deletion of variables
+<br/>no-label-var - disallow labels that share a name with a variable
+<br/>no-shadow - disallow declaration of variables already declared in the outer scope
+<br/>no-shadow-restricted-names - disallow shadowing of names such as arguments
+<br/>no-undef - disallow use of undeclared variables unless mentioned in a /*global */ block
+<br/>no-undef-init - disallow use of undefined when initializing variables
+<br/>no-unused-vars - disallow declaration of variables that are not used in the code
+<br/>no-use-before-define - disallow use of variables before they are defined
+
+
+<h3>Stylistic Issues</h3>
+
+brace-style - enforce one true brace style
+<br/>camelcase - require camel case names
+<br/>consistent-this - enforces consistent naming when capturing the current execution context (off by default)
+<br/>func-names - require function expressions to have a name
+<br/>func-style - enforces use of function declarations or expressions
+<br/>new-cap - require a capital letter for constructors
+<br/>new-parens - disallow the omission of parentheses when invoking a contructor with no arguments
+<br/>no-nested-ternary - disallow nested ternary expressions
+<br/>no-array-constructor - disallow use of the Array constructor
+<br/>no-new-object - disallow use of the Object constructor
+<br/>no-spaced-func - disallow space between function identifier and application
+<br/><span class="nope">no-ternary - disallow the use of ternary operators</span>
+<br/><span class="nope">no-underscore-dangle - disallow dangling underscores in identifiers</span>
+<br/>no-wrap-func - disallow wrapping of none IIFE statements in parents
+<br/>quotes - specify whether double or single quotes should be used
+<br/>quote-props - require quotes around object literal property names
+<br/>semi- require or disallow use of semicolons instead of ASI
+<br/>sort-vars - sort variables within the same declaration block
+<br/>space-in-brackets - require or disallow spaces between brackets
+<br/>space-infix-ops - require spaces around operators
+<br/>space-return-throw-case - require a space after return, throw, and case
+<br/>space-unary-word-ops - require a space around word operators such as typeof
+<br/>max-nested-callbacks - specify the maximum depth callbacks can be nested
+<br/>one-var - allow just one var statement per function
+<br/>wrap-regex - require regex literals to be wrapped in parentheses
+
+<style type="text/css">
+	.nope{
+		color:red;
+		text-decoration: line-through;
+	}
+</style>
