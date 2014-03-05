@@ -176,7 +176,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\HelloWorldModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JSONResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -209,6 +211,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="fragments\tutorial_def.js" />
+    <Content Include="images\loadingBackground.gif" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\home\UsingJavascript.js" />
     <Content Include="Scripts\labelmaster\labelmaster.js" />
@@ -310,6 +313,7 @@
     <Content Include="Scripts\lib\jasmine\jasmine-1.3.1\MIT.LICENSE" />
     <Content Include="Scripts\lib\jquery-2.1.0.min.map" />
     <Content Include="Scripts\lib\underscore.min.map" />
+    <Content Include="Views\Home\HelloWorld.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

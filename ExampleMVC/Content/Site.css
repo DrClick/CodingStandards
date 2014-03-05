@@ -73,3 +73,17 @@ input[type="checkbox"].input-validation-error {
 pre{
     padding:10px !important;
 }
+
+#LM_Loading {
+    height: 100%;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    background-color: gainsboro;
+    background-image: url('/Images/LoadingBackground.gif');
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1000000000;
+    opacity: .7
+}
